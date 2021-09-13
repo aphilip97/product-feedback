@@ -1,0 +1,57 @@
+@media only screen and (max-device-width: 425px)
+
+  button.hamburger
+    padding: 0
+    width: 32px
+    height: 32px
+    background: none
+    border: none
+    position: absolute
+    right: 24px
+    top: 50%
+    transform: translateY(-50%)
+    cursor: pointer
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    row-gap: 4px
+
+  button.hamburger::before,
+  button.hamburger::after,
+  button.hamburger > span
+    content: ''
+    display: block
+    // width: 20px
+    inline-size: 20px
+    // height: 3px
+    block-size: 3px
+    background-color: white
+    transition: transform .15s linear
+
+  button.hamburger[data-animation-stage='start']::before,
+  button.hamburger[data-animation-stage='start'] > span,
+  button.hamburger[data-animation-stage='start']::after
+    transform: translateY(0px) rotate(0deg)
+
+  button.hamburger[data-animation-stage='middle']::before
+    transform: translateY(7px) rotate(0deg)
+
+  button.hamburger[data-animation-stage='middle'] > span
+    transform: translateY(0px) rotate(0deg)
+
+  button.hamburger[data-animation-stage='middle']::after
+    transform: translateY(-7px) rotate(0deg)
+
+  button.hamburger[data-animation-stage='end']::before
+    transform: translateY(7px) rotate(45deg)
+
+  button.hamburger[data-animation-stage='end'] > span
+    transform: translateY(0px) rotate(-45deg)
+
+  button.hamburger[data-animation-stage='end']::after
+    transform: translateY(-7px) rotate(-45deg)
+
+@media only screen and (min-device-width: 426px)
+  button.hamburger
+    display: none
