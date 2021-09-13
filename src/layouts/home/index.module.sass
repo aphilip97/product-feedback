@@ -1,0 +1,99 @@
+@use '../../styles/mixins/typography'
+
+.home
+  background-color: var(--off-white)
+  opacity: 0
+  transition: opacity 0.3s ease-out
+
+.fadeIn
+  transition-timing-function: ease-in
+  opacity: 1
+
+@media only screen and (max-device-width: 425px)
+
+  .home
+
+    & > header
+      padding: 16px 24px
+      background: url('/assets/images/mobile/background-header.png') center no-repeat
+      background-size: cover
+      position: relative
+
+      & > h1
+        @include typography.heading-smallest(--white)
+        font-size: 15px
+        line-height: 21.68px
+        letter-spacing: -0.19px
+        margin: 0
+
+      & > h2
+        @include typography.body-3(--white)
+        font-weight: 500
+        opacity: 0.75
+        margin: 0
+
+@media only screen and (min-device-width: 426px) and (max-device-width: 768px)
+
+  .home
+    padding: 56px 40px 56px 39px
+
+    & > header
+      background: url('/assets/images/tablet/background-header.png') center no-repeat
+      background-size: cover
+      width: 223px
+      height: 176px
+      padding: 24px
+      border-radius: 10px
+      display: inline-flex
+      flex-direction: column
+      justify-content: flex-end
+
+      & > h1
+        @include typography.heading-big(--white)
+        margin: 0
+
+      & > h2
+        @include typography.body-2(--white)
+        font-weight: 500
+        opacity: 0.75
+        margin: 0
+
+@media only screen and (min-device-width: 769px)
+
+  .home
+    --left-column: 255px
+    --right-column: 825px
+    --col-gap: 30px
+
+    --total-width: calc(calc(var(--left-column) + var(--right-column)) + var(--col-gap))
+    --max-spacing: calc(calc(100vw - var(--total-width)) / 2)
+    --side-spacing: clamp(24px, max(24px, var(--max-spacing)), var(--max-spacing))
+
+    padding: 94px var(--side-spacing) 129px var(--side-spacing)
+
+    display: grid
+    grid-template-columns: [left] 255px [mid] minmax(435px, 825px) [right]
+    grid-template-rows: [top] 72px [below-aside] 41px [below-header] auto [bottom]
+    column-gap: var(--col-gap)
+    row-gap: 24px
+
+    & > header
+      grid-column: left / mid
+      grid-row: top / below-header
+      padding: 24px
+      border-radius: 10px
+      display: flex
+      flex-direction: column
+      justify-content: flex-end
+      background: url('/assets/images/desktop/background-header.png') center no-repeat
+      background-size: cover
+
+      & > h1
+        @include typography.heading-big(--white)
+        margin: 0
+
+      & > h2
+        @include typography.body-2(--white)
+        font-weight: 500
+        opacity: 0.75
+        margin: 0
