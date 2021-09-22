@@ -1,4 +1,5 @@
 @use '../../styles/mixins/typography'
+@use '../../styles/mixins/scrolling'
 
 .home
   background-color: var(--off-white)
@@ -13,7 +14,7 @@
 
   .home
 
-    & > header
+    & > div[role='presentation'] > header
       padding: 16px 24px
       background: url('/assets/images/mobile/background-header.png') center no-repeat
       background-size: cover
@@ -32,19 +33,80 @@
         opacity: 0.75
         margin: 0
 
+    & > div[role='presentation'] > aside
+      background-color: var(--off-white)
+      width: min(271px, 100vw)
+      height: calc(100vh - 72px)
+      padding: 24px
+      position: fixed
+      right: 0px
+      display: flex
+      flex-direction: column
+      align-items: center
+      row-gap: 24px
+      transition: transform .15s ease-in
+      will-change: transform
+      overflow-y: overlay
+      overflow-x: hidden
+      @include scrolling.scroll-y(--scrollbar-color)
+      z-index: 1
+
+      &[data-animation-stage='start']
+        transform: translateX(100%)
+        visibility: hidden
+
+      &[data-animation-stage='middle']
+        transform: translateX(100%)
+
+      &[data-animation-stage='end']
+        transform: translateX(0px)
+
+    & > div[role='presentation'] > div[role='presentation']
+      background-color: hsla(0deg 0% 0% / .5)
+      position: fixed
+      left: 0
+      top: 72px
+      width: 100vw
+      height: calc(100vh - 72px)
+      z-index: 0
+      pointer-events: none
+      transition: opacity .15s ease-in-out
+
+      &[data-animation-stage='start']
+        opacity: 0
+
+      &[data-animation-stage='middle']
+        opacity: 0
+
+      &[data-animation-stage='end']
+        opacity: 1
+
 @media only screen and (min-device-width: 426px) and (max-device-width: 768px)
 
   .home
     padding: 56px 40px 56px 39px
 
-    & > header
+    & > div[role='presentation']
+      display: flex
+      column-gap: 10px
+      overflow-y: hidden
+      overflow-x: overlay
+      @include scrolling.scroll-y(--scrollbar-color)
+      width: calc(100vw - 40px)
+
+    & > div[role='presentation'] > div[role='presentation']
+      display: none
+
+    & > div[role='presentation'] > header
       background: url('/assets/images/tablet/background-header.png') center no-repeat
       background-size: cover
       width: 223px
-      height: 176px
+      height: 178px
       padding: 24px
       border-radius: 10px
-      display: inline-flex
+      // flex-grow: 1 // TODO: Uncomment this after implementing profile aside
+      flex-shrink: 0
+      display: flex
       flex-direction: column
       justify-content: flex-end
 
@@ -57,6 +119,10 @@
         font-weight: 500
         opacity: 0.75
         margin: 0
+
+    & > div[role='presentation'] > aside
+      display: flex
+      column-gap: 10px
 
 @media only screen and (min-device-width: 769px)
 
@@ -73,15 +139,22 @@
 
     display: grid
     grid-template-columns: [left] 255px [mid] minmax(435px, 825px) [right]
-    grid-template-rows: [top] 72px [below-aside] 41px [below-header] auto [bottom]
+    grid-template-rows: [top] 72px [below-aside] auto [bottom]
     column-gap: var(--col-gap)
     row-gap: 24px
 
-    & > header
+    & > div[role='presentation'] > div[role='presentation']
+      display: none
+
+    & > div[role='presentation']
       grid-column: left / mid
-      grid-row: top / below-header
+      grid-row: top / bottom
+
+    & > div[role='presentation'] > header
       padding: 24px
+      margin-bottom: 24px
       border-radius: 10px
+      height: 137px
       display: flex
       flex-direction: column
       justify-content: flex-end
@@ -97,3 +170,8 @@
         font-weight: 500
         opacity: 0.75
         margin: 0
+
+    & > div[role='presentation'] > aside
+      display: flex
+      flex-direction: column
+      row-gap: 24px

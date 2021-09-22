@@ -26,6 +26,7 @@ const HomeLayout: React.FC<HomeLayout> = ({ children }) => {
 
   return (
     <div
+      role='presentation'
       onTransitionEnd={() => {
         if (transitionStage === 'fadeOut') {
           setDisplayChildren(children);

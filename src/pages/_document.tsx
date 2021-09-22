@@ -24,6 +24,7 @@ class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&display=swap"
             rel="stylesheet"
           />
+          <title>Frontend Mentor | Product Feedback App</title>
         </Head>
         <body>
           <Main />
