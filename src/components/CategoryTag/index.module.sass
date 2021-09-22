@@ -1,0 +1,23 @@
+@use "../../styles/mixins/typography"
+
+button.category
+  @include typography.body-3(--blue)
+  background: none
+  background-color: var(--light-gray)
+  border: none
+  border-radius: 10px
+  padding: 5px 16px
+  outline: none
+  cursor: pointer
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out
+
+button.category:hover,
+button.category:focus
+  background-color: var(--light-gray-hover)
+
+button.category[data-active="true"]
+  background-color: var(--blue)
+  color: var(--white)
+
+button.category > abbr
+  text-decoration: none
