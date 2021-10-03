@@ -10,10 +10,16 @@ export type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout
 };
 
-export type MenuAnimationStage = 'start' | 'middle' | 'end';
+export type AnimationStage = 'start' | 'middle' | 'end';
+
+export type Option = {
+  content: string;
+  acronym?: true;
+  expansion?: string;
+};
 
 export type HamburgerProps = {
   menuState: boolean;
-  menuAnimStage: MenuAnimationStage;
+  menuAnimStage: AnimationStage;
   clickHandler: MouseEventHandler<HTMLButtonElement>;
 };

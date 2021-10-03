@@ -1,12 +1,7 @@
 import type { Dispatch, SetStateAction } from 'react';
+import type { Option } from '../../../types';
 import CategoryTag from '../CategoryTag';
 import styles from './index.module.sass';
-
-type Category = {
-  content: string;
-  acronym?: true;
-  expansion?: string;
-}
 
 type CategoryFilter = {
   activeFilter: number;
@@ -18,7 +13,7 @@ const CategoryFilter: React.FC<CategoryFilter> = ({
   changeFilter
 }) => {
 
-  const hardcodedCategories: Category[] = [
+  const hardcodedCategories: Option[] = [
     { content: "All" },
     { content: "UI", acronym: true, expansion: 'User Interface' },
     { content: "UX", acronym: true, expansion: 'User Experience' },

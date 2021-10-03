@@ -1,17 +1,17 @@
 import { useCallback, useEffect, useState } from 'react';
-import type { NextPageWithLayout, MenuAnimationStage, HamburgerProps } from '../../types';
+import type { NextPageWithLayout, AnimationStage, HamburgerProps } from '../../types';
 import CategoryFilter from '../components/CategoryFilter';
 import Hamburger from '../components/Hamburger';
 import HomeLayout from '../layouts/home';
 
 const Home: NextPageWithLayout = () => {
   const [open, setOpen] = useState(false);
-  const [animStage, setAnimStage] = useState<MenuAnimationStage>('start');
+  const [animStage, setAnimStage] = useState<AnimationStage>('start');
   const [selected, setSelected] = useState(0);
 
   const getAnimationStageOrder = useCallback<() => [
-    MenuAnimationStage,
-    MenuAnimationStage
+    AnimationStage,
+    AnimationStage
   ]>(() => {
     if (!open) return ['middle', 'end'];
     return ['middle', 'start'];
