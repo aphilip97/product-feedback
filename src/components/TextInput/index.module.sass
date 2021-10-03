@@ -1,0 +1,53 @@
+@use '../../styles/mixins/typography'
+
+fieldset.text-input
+  margin: 0 0 4px
+
+  & > input
+    width: 100%
+    height: 48px
+    border: 1px solid var(--off-white)
+    border-radius: 5px
+    background-color: var(--off-white)
+    transition: border-color 0.2s ease-out
+    outline: none
+
+    &:focus
+      transition: border-color 0.2s ease-in
+      border-color: var(--blue)
+
+    &[data-invalid='true'],
+    &[data-invalid='true']:focus
+      transition: border-color 0.2s ease-in
+      border-color: var(--danger)
+
+  & > small
+    @include typography.body-2(--danger)
+    font-size: 14px
+    line-height: 20px
+    display: inline-block
+    transform: translateY(-10px)
+    opacity: 0
+    transition: transform 0.2s ease-in, opacity 0.2s ease-in
+
+  & > input[data-invalid='true'] + small
+    transition: transform 0.2s ease-out, opacity 0.2s ease-out
+    transform: translateY(4px)
+    opacity: 1
+
+@media only screen and (max-device-width: 425px)
+
+  fieldset.text-input
+
+    & > input
+      @include typography.body-3(--dark-blue)
+      font-weight: 400
+      padding: 15px 16px 14px 16px
+
+@media only screen and (min-device-width: 426px)
+
+  fieldset.text-input
+
+    & > input
+      @include typography.body-2(--dark-blue)
+      padding: 13px 24px 13px 24px
