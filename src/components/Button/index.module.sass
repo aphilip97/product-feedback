@@ -1,0 +1,53 @@
+@use '../../styles/mixins/typography'
+
+@media only screen and (max-device-width: 425px)
+
+  .button
+    @include typography.body-3(--white)
+    width: 100%
+
+@media only screen and (min-device-width: 426px)
+
+  .button
+    @include typography.heading-smallest(--white)
+    letter-spacing: 0px
+
+.button
+  background: none
+  padding: 12px 24px
+  border: none
+  border-radius: 10px
+  outline: none
+  transition: background-color 0.3s ease-in-out
+  cursor: pointer
+  display: flex
+  justify-content: center
+  align-items: center
+
+.button[primary-purple]
+  background-color: var(--purple)
+
+.button[primary-purple]:hover,
+.button[primary-purple]:focus
+  background-color: var(--purple-hover)
+
+.button[primary-blue]
+  background-color: var(--blue)
+
+.button[primary-blue]:hover,
+.button[primary-blue]:focus
+  background-color: var(--blue-hover)
+
+.button[secondary]
+  background-color: var(--dark-blue)
+
+.button[secondary]:hover,
+.button[secondary]:focus
+  background-color: var(--dark-blue-hover)
+
+.button[danger]
+  background-color: var(--danger)
+
+.button[danger]:hover,
+.button[danger]:focus
+  background-color: var(--danger-hover)
