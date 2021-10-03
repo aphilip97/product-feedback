@@ -32,3 +32,9 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# docker
+docker-data
+
+# prisma
+/prisma/migrations
