@@ -1,0 +1,100 @@
+@use '../../styles/mixins/typography'
+@use '../../styles/mixins/scrolling'
+
+fieldset.single-select
+  position: relative
+  margin: 0 0 24px
+
+  & > button
+    width: 100%
+    height: 48px
+    border: 1px solid var(--off-white)
+    border-radius: 5px
+    background-color: var(--off-white)
+    transition: border-color 0.2s ease-out
+    outline: none
+
+    display: flex
+    justify-content: space-between
+    align-items: center
+
+    &:focus
+      border-color: var(--blue)
+
+    &::after
+      content: url('/assets/icons/icon-arrow-down.svg')
+      width: 10px
+      height: 100%
+      display: inline-block
+      transition: transform .2s ease-in-out
+
+    &[data-anim-stage="end"]::after
+      transform: rotate(180deg)
+
+  & > ul
+    list-style-type: none
+    margin: 0
+    padding: 0
+    border-radius: 10px
+    box-shadow: 0px 10px 40px -7px rgba(55, 63, 104, 0.350492)
+    background-color: var(--white)
+    position: absolute
+    width: 100%
+    z-index: 1
+    opacity: 0
+
+    transition: transform .2s, opacity .2s
+
+    max-height: 239px
+    overflow-y: auto
+    overflow-y: overlay
+    @include scrolling.scroll-y(--scrollbar-color)
+
+    &[data-anim-stage="start"]
+      visibility: hidden
+
+    &[data-anim-stage="middle"]
+      visibility: visible
+
+    &[data-anim-stage="end"]
+      visibility: visible
+      transform: translateY(16px)
+      opacity: 1
+
+    & > li
+      @include typography.body-1(--grayish-blue)
+      padding: 12px 24px
+      transition: color 0.2s ease-in-out
+      display: flex
+      justify-content: space-between
+      align-items: center
+      cursor: pointer
+
+      & > abbr
+        text-decoration: none
+
+    & > li:hover
+      color: var(--purple)
+
+    & > li:not(:last-of-type)
+      border-bottom: 1px solid hsla(231deg 33% 34% / .15)
+
+    & > li[aria-selected="true"]::after
+      content: url('/assets/icons/icon-check.svg')
+
+@media only screen and (max-device-width: 425px)
+
+  fieldset.single-select
+
+    & > button
+      @include typography.body-3(--dark-blue)
+      font-weight: 400
+      padding: 15px 16px 14px 16px
+
+@media only screen and (min-device-width: 426px)
+
+  fieldset.single-select
+
+    & > button
+      @include typography.body-2(--dark-blue)
+      padding: 12px 22px 12px 23px
