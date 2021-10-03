@@ -1,0 +1,66 @@
+@use '../../styles/mixins/typography'
+@use '../../styles/mixins/scrolling'
+
+fieldset.custom-text-area
+  margin: 0 0 0
+
+  & > textarea
+    width: 100%
+    border: 1px solid var(--off-white)
+    border-radius: 5px
+    background-color: var(--off-white)
+    transition: border-color 0.2s ease-out
+    outline: none
+    resize: none
+    overflow-y: overlay
+    @include scrolling.scroll-y(--scrollbar-color)
+
+    &:focus
+      transition: border-color 0.2s ease-in
+      border-color: var(--blue)
+
+    &[data-invalid='true'],
+    &[data-invalid='true']:focus
+      transition: border-color 0.2s ease-in
+      border-color: var(--danger)
+
+  & > span
+    display: flex
+    justify-content: space-between
+    align-items: center
+
+    & > small.count
+      @include typography.body-2(--grayish-blue)
+
+    & > small.error
+      @include typography.body-2(--danger)
+      font-size: 14px
+      line-height: 20px
+      display: inline-block
+      transform: translateY(-10px)
+      opacity: 0
+      transition: transform 0.2s ease-in, opacity 0.2s ease-in
+
+  & > textarea[data-invalid='true'] + span > small.error
+    transition: transform 0.2s ease-out, opacity 0.2s ease-out
+    transform: translateY(-1px)
+    opacity: 1
+
+@media only screen and (max-device-width: 425px)
+
+  fieldset.custom-text-area
+
+    & > textarea
+      @include typography.body-3(--dark-blue)
+      font-weight: 400
+      height: 120px
+      padding: 16px 16px 16px 16px
+
+@media only screen and (min-device-width: 426px)
+
+  fieldset.custom-text-area
+
+    & > textarea
+      @include typography.body-2(--dark-blue)
+      height: 96px
+      padding: 16px 23px 16px 23px
