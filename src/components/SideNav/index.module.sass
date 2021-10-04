@@ -8,6 +8,7 @@ $d-bg-url: '/assets/images/desktop/background-header.png'
 $min-d-w: min-device-width
 $max-d-w: max-device-width
 
+// Styling for all viewports
 .sidenav
 
   & > header
@@ -38,6 +39,7 @@ $max-d-w: max-device-width
   & > div.overlay
     display: none
 
+// Mobile styles
 @media only screen and ($max-d-w: 425px)
 
   .sidenav
@@ -105,6 +107,7 @@ $max-d-w: max-device-width
       &[data-animation-stage='end']
         opacity: 1
 
+// Tablet styles
 @media only screen and ($min-d-w: 426px) and ($max-d-w: 768px)
 
   .sidenav
@@ -129,6 +132,7 @@ $max-d-w: max-device-width
       column-gap: 10px
       row-gap: 0px
 
+// Desktop styles
 @media only screen and ($min-d-w: 769px)
 
   .sidenav

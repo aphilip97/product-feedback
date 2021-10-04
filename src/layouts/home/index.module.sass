@@ -5,9 +5,7 @@
 $min-d-w: min-device-width
 $max-d-w: max-device-width
 
-.home
-  transition: opacity 0.3s
-
+// Page Transition styles
 .fadeIn
   transition-timing-function: ease-in
   opacity: 1
@@ -15,6 +13,10 @@ $max-d-w: max-device-width
 .fadeOut
   transition-timing-function: ease-out
   opacity: 0
+
+// Styling for all viewports
+.home
+  transition: opacity 0.3s
 
 // Mobile styles
 @media only screen and ($max-d-w: 425px)

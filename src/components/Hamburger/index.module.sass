@@ -1,6 +1,7 @@
 $min-d-w: min-device-width
 $max-d-w: max-device-width
 
+// Mobile styles
 @media only screen and ($max-d-w: 425px)
 
   button.hamburger
@@ -56,6 +57,7 @@ $max-d-w: max-device-width
   button.hamburger[data-animation-stage='end']::after
     transform: translateY(-7px) rotate(-45deg)
 
+// Tablet and Desktop styles
 @media only screen and (min-device-width: 426px)
   button.hamburger
     display: none

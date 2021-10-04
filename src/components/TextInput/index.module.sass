@@ -3,6 +3,7 @@
 $min-d-w: min-device-width
 $max-d-w: max-device-width
 
+// Styling for all viewports
 fieldset.text-input
   margin: 0 0 4px
 
@@ -38,6 +39,7 @@ fieldset.text-input
     transform: translateY(4px)
     opacity: 1
 
+// Mobile styles
 @media only screen and ($max-d-w: 425px)
 
   fieldset.text-input
@@ -47,6 +49,7 @@ fieldset.text-input
       font-weight: 400
       padding: 15px 16px 14px 16px
 
+// Tablet and Desktop styles
 @media only screen and ($min-d-w: 426px)
 
   fieldset.text-input

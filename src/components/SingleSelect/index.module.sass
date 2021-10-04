@@ -4,6 +4,7 @@
 $min-d-w: min-device-width
 $max-d-w: max-device-width
 
+// Styling for all viewports
 fieldset.single-select
   position: relative
   margin: 0 0 24px
@@ -85,6 +86,7 @@ fieldset.single-select
     & > li[aria-selected="true"]::after
       content: url('/assets/icons/icon-check.svg')
 
+// Mobile styles
 @media only screen and ($max-d-w: 425px)
 
   fieldset.single-select
@@ -94,6 +96,7 @@ fieldset.single-select
       font-weight: 400
       padding: 15px 16px 14px 16px
 
+// Tablet and desktop styles
 @media only screen and ($min-d-w: 426px)
 
   fieldset.single-select

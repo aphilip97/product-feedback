@@ -1,6 +1,7 @@
 $min-d-w: min-device-width
 $max-d-w: max-device-width
 
+// Styles for all viewports
 .container
   background-color: var(--white)
   width: 223px
@@ -12,12 +13,14 @@ $max-d-w: max-device-width
   row-gap: 14px
   column-gap: 8px
 
+// Tablet Styles
 @media only screen and ($min-d-w: 426px) and ($max-d-w: 768px)
 
   .container
     flex-grow: 1
     flex-shrink: 0
 
+// Desktop styles
 @media only screen and ($min-d-w: 769px)
 
   .container
