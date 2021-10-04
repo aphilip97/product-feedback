@@ -1,12 +1,11 @@
 @use '../../styles/mixins/typography'
 @use '../../styles/mixins/scrolling'
+@use '../../styles/mixins/spacing'
 
 $min-d-w: min-device-width
 $max-d-w: max-device-width
 
-.new
-  transition: opacity 0.3s
-
+// Page Transitions
 .fadeIn
   transition-timing-function: ease-in
   opacity: 1
@@ -15,6 +14,55 @@ $max-d-w: max-device-width
   transition-timing-function: ease-out
   opacity: 0
 
+// Styling for all viewports
+.new
+  transition: opacity 0.3s
+
+  & > nav > button
+    padding: 0
+    background: none
+    border: none
+    font-weight: 700
+    cursor: pointer
+    display: flex
+    align-items: center
+    column-gap: 15px
+
+    &::before
+      content: url('/assets/icons/icon-arrow-left.svg')
+      width: 5px
+      height: 100%
+      display: inline-block
+
+  & > form
+    border-radius: 10px
+    background-color: var(--white)
+    position: relative
+
+    &::before
+      content: url('/assets/icons/icon-new-feedback.svg')
+      display: inline-block
+      width: var(--size)
+      height: var(--size)
+      position: absolute
+      top: calc(calc(var(--size) / 2) * -1)
+
+    & > fieldset
+      border: none
+      padding: 0
+
+      & > label
+        @include typography.heading-smallest(--dark-blue)
+
+      & > p
+        @include typography.body-3(--grayish-blue)
+        font-weight: 400
+        margin: 3px 0 16px
+
+    & > div[role='presentation']
+      display: flex
+
+// Mobile styles
 @media only screen and ($max-d-w: 425px)
 
   .new
@@ -24,126 +72,67 @@ $max-d-w: max-device-width
       margin: 0 0 55px 0
 
       & > button
-        padding: 0
-        background: none
-        border: none
         @include typography.body-3(--grayish-blue)
-        font-weight: 700
-        cursor: pointer
-        display: flex
-        align-items: center
-        column-gap: 15px
-
-        &::before
-          content: url('/assets/icons/icon-arrow-left.svg')
-          width: 5px
-          height: 100%
-          display: inline-block
 
     & > form
       padding: 44px 24px 24px
-      border-radius: 10px
-      background-color: var(--white)
-      position: relative
 
       &::before
         --size: 40px
-        content: url('/assets/icons/icon-new-feedback.svg')
-        display: inline-block
-        width: var(--size)
-        height: var(--size)
-        position: absolute
-        top: calc(calc(var(--size) / 2) * -1)
 
       & > h1
         @include typography.heading-small(--dark-blue)
         margin: 0 0 24px
 
       & > fieldset
-        border: none
-        padding: 0
 
         & > label
-          @include typography.heading-smallest(--dark-blue)
           font-size: 13px
           line-height: 19px
 
-        & > p
-          @include typography.body-3(--grayish-blue)
-          font-weight: 400
-          margin: 3px 0 16px
-
       & > div[role='presentation']
-        margin: 16px 0 0 0
-        display: flex
+        margin: 16px 0px 0px 0px
         flex-direction: column
         row-gap: 16px
 
+// Tablet styles
 @media only screen and ($min-d-w: 426px)
 
   .new
-    margin: 56px auto 56px
-    width: 540px
+    --total-width: 540px
+    --margin-y: 56px
+    width: var(--total-width)
+    @include spacing.side-spacing(24px)
+    margin: var(--margin-y) var(--side-spacing) var(--margin-y)
 
     & > nav
       margin: 0 0 68px 0
 
       & > button
-        padding: 0
-        background: none
-        border: none
         @include typography.heading-smallest(--grayish-blue)
         letter-spacing: 0
-        font-weight: 700
-        cursor: pointer
-        display: flex
-        align-items: center
-        column-gap: 15px
-
-        &::before
-          content: url('/assets/icons/icon-arrow-left.svg')
-          width: 5px
-          height: 100%
-          display: inline-block
 
     & > form
       padding: 52px 42px 40px
-      border-radius: 10px
-      background-color: var(--white)
-      position: relative
 
       &::before
         --size: 56px
-        content: url('/assets/icons/icon-new-feedback.svg')
-        display: inline-block
-        width: var(--size)
-        height: var(--size)
-        position: absolute
-        top: calc(calc(var(--size) / 2) * -1)
 
       & > h1
         @include typography.heading-biggest(--dark-blue)
         margin: 0 0 40px
 
       & > fieldset
-        border: none
-        padding: 0
-
-        & > label
-          @include typography.heading-smallest(--dark-blue)
 
         & > p
-          @include typography.body-3(--grayish-blue)
-          font-weight: 400
           font-size: 14px
           line-height: 20.23px
           margin: 2px 0 16px
 
       & > div[role='presentation']
-        display: flex
+        margin: 12px 0px 0px 0px
         justify-content: flex-end
         column-gap: 16px
-        margin: 12px 0px 0px 0px
 
         & > button[type='reset']
           order: 1
@@ -151,7 +140,14 @@ $max-d-w: max-device-width
         & > button[type='submit']
           order: 2
 
+// Breaking point in the layout
+@media only screen and ($max-d-w: 588px)
+
+  .new
+    width: auto
+
+// Desktop styles
 @media only screen and ($min-d-w: 769px)
 
   .new
-    margin: 92px auto 92px
+    --margin-y: 92px

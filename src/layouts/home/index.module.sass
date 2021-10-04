@@ -1,5 +1,6 @@
 @use '../../styles/mixins/typography'
 @use '../../styles/mixins/scrolling'
+@use '../../styles/mixins/spacing'
 
 $min-d-w: min-device-width
 $max-d-w: max-device-width
@@ -15,13 +16,16 @@ $max-d-w: max-device-width
   transition-timing-function: ease-out
   opacity: 0
 
+// Mobile styles
 @media only screen and ($max-d-w: 425px)
 
+// Tablet styles
 @media only screen and ($min-d-w: 426px) and ($max-d-w: 768px)
 
   .home
     padding: 56px 40px 56px 39px
 
+// Desktop styles
 @media only screen and ($min-d-w: 769px)
 
   .home
@@ -36,11 +40,7 @@ $max-d-w: max-device-width
 
     --total-width: calc(var(--total-col-w) + var(--col-gap))
 
-    --max: calc(calc(100vw - var(--total-width)) / 2)
-
-    --pref: max(24px, var(--max))
-
-    --side-spacing: clamp(24px, var(--pref), var(--max))
+    @include spacing.side-spacing(24px)
 
     padding: 94px var(--side-spacing) 129px var(--side-spacing)
 

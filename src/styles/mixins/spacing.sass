@@ -1,0 +1,4 @@
+@mixin side-spacing($pref)
+  --max: calc(calc(100vw - var(--total-width)) / 2)
+  --pref: max(#{$pref}, var(--max))
+  --side-spacing: clamp(#{$pref}, var(--pref), var(--max))

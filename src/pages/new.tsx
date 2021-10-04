@@ -28,13 +28,10 @@ const New: NextPageWithLayout = () => {
   const router = useRouter();
 
   const [title, setTitle] = useState<string>('');
-  const [category, setCategory] = useState('Feature');
+  const [category, setCategory] = useState('UI');
   const [detail, setDetail] = useState<string>('');
 
   const [categories] = useState<Option[]>([
-    {
-      content: "Feature"
-    },
     {
       content: "UI",
       acronym: true,
@@ -50,6 +47,9 @@ const New: NextPageWithLayout = () => {
     },
     {
       content: "Bug"
+    },
+    {
+      content: "Feature"
     },
   ]);
 
@@ -102,7 +102,7 @@ const New: NextPageWithLayout = () => {
       .finally(
         () => {
           setTitle('');
-          setCategory('Feature');
+          setCategory('UI');
           setDetail('');
           router.back();
         }
