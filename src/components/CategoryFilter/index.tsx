@@ -23,9 +23,6 @@ const CategoryFilter: React.FC<CategoryFilter> = ({
 
   const hardcodedCategories: Option[] = [
     {
-      content: "All",
-    },
-    {
       content: "UI",
       acronym: true,
       expansion: 'User Interface',
@@ -52,12 +49,18 @@ const CategoryFilter: React.FC<CategoryFilter> = ({
 
   return (
     <div role='presentation' className={styles['container']}>
+      <CategoryTag
+        active={0 === activeFilter}
+        clickHandler={createClickHandler(0)}
+      >
+        All
+      </CategoryTag>
       {hardcodedCategories.map((category, index) => {
         return (
           <CategoryTag
             key={index}
-            active={index === activeFilter}
-            clickHandler={createClickHandler(index)}
+            active={(index + 1) === activeFilter}
+            clickHandler={createClickHandler(index + 1)}
           >
             {
               category.acronym

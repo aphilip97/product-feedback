@@ -1,8 +1,8 @@
 import styles from './index.module.sass';
 
 type CategoryTagProps = {
-  active?: boolean;
-  clickHandler?: () => void;
+  active: boolean;
+  clickHandler: () => void;
 };
 
 const CategoryTag: React.FC<CategoryTagProps> = ({
