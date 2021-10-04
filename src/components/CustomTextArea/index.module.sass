@@ -1,6 +1,9 @@
 @use '../../styles/mixins/typography'
 @use '../../styles/mixins/scrolling'
 
+$min-d-w: min-device-width
+$max-d-w: max-device-width
+
 fieldset.custom-text-area
   margin: 0 0 0
 
@@ -13,7 +16,7 @@ fieldset.custom-text-area
     outline: none
     resize: none
     overflow-y: overlay
-    @include scrolling.scroll-y(--scrollbar-color)
+    @include scrolling.scroll(--scrollbar-color)
 
     &:focus
       transition: border-color 0.2s ease-in
@@ -46,7 +49,7 @@ fieldset.custom-text-area
     transform: translateY(-1px)
     opacity: 1
 
-@media only screen and (max-device-width: 425px)
+@media only screen and ($max-d-w: 425px)
 
   fieldset.custom-text-area
 
@@ -56,7 +59,7 @@ fieldset.custom-text-area
       height: 120px
       padding: 16px 16px 16px 16px
 
-@media only screen and (min-device-width: 426px)
+@media only screen and ($min-d-w: 426px)
 
   fieldset.custom-text-area
 

@@ -1,12 +1,15 @@
 @use '../../styles/mixins/typography'
 
-@media only screen and (max-device-width: 425px)
+$min-d-w: min-device-width
+$max-d-w: max-device-width
+
+@media only screen and ($max-d-w: 425px)
 
   .button
     @include typography.body-3(--white)
     width: 100%
 
-@media only screen and (min-device-width: 426px)
+@media only screen and ($min-d-w: 426px)
 
   .button
     @include typography.heading-smallest(--white)

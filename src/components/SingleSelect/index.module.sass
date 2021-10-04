@@ -1,6 +1,9 @@
 @use '../../styles/mixins/typography'
 @use '../../styles/mixins/scrolling'
 
+$min-d-w: min-device-width
+$max-d-w: max-device-width
+
 fieldset.single-select
   position: relative
   margin: 0 0 24px
@@ -48,7 +51,7 @@ fieldset.single-select
     max-height: 239px
     overflow-y: auto
     overflow-y: overlay
-    @include scrolling.scroll-y(--scrollbar-color)
+    @include scrolling.scroll(--scrollbar-color)
 
     &[data-anim-stage="start"]
       visibility: hidden
@@ -82,7 +85,7 @@ fieldset.single-select
     & > li[aria-selected="true"]::after
       content: url('/assets/icons/icon-check.svg')
 
-@media only screen and (max-device-width: 425px)
+@media only screen and ($max-d-w: 425px)
 
   fieldset.single-select
 
@@ -91,7 +94,7 @@ fieldset.single-select
       font-weight: 400
       padding: 15px 16px 14px 16px
 
-@media only screen and (min-device-width: 426px)
+@media only screen and ($min-d-w: 426px)
 
   fieldset.single-select
 

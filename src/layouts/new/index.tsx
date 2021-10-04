@@ -1,14 +1,30 @@
-import { JSXElementConstructor, ReactElement, useEffect, useState } from 'react';
+import {
+  JSXElementConstructor,
+  ReactElement,
+  useEffect,
+  useState,
+} from 'react';
+
 import styles from './index.module.sass';
 
 type NewLayout = {
-  children: ReactElement<any, string | JSXElementConstructor<any>>;
+  children: ReactElement<
+    any,
+    string | JSXElementConstructor<any>
+  >;
 };
 
 const NewLayout: React.FC<NewLayout> = ({ children }) => {
 
-  const [displayChildren, setDisplayChildren] = useState(children);
-  const [transitionStage, setTransitionStage] = useState('fadeOut');
+  const [
+    displayChildren,
+    setDisplayChildren,
+  ] = useState(children);
+
+  const [
+    transitionStage,
+    setTransitionStage,
+  ] = useState('fadeOut');
 
   useEffect(() => {
     setTransitionStage('fadeIn');

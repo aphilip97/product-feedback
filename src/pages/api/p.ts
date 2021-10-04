@@ -1,11 +1,17 @@
-import type { Post } from '@prisma/client';
-import type { NextApiHandler } from 'next';
+import type {
+  Post,
+} from '@prisma/client';
 
-import db from '../../lib/prisma';
+import type {
+  NextApiHandler,
+} from 'next';
+
 import {
   customError,
   parseReqBody,
 } from '../../util/api/middleware';
+
+import db from '../../lib/prisma';
 
 type PostBody = {
   title: string;
@@ -85,6 +91,7 @@ const postFeedback: NextApiHandler<
       );
     }
 
+    // Insert into database
     const post = await db.post.create({
       data: {
         title,

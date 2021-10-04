@@ -1,6 +1,14 @@
-import type { Dispatch, SetStateAction } from 'react';
-import type { Option } from '../../../types';
+import type {
+  Dispatch,
+  SetStateAction,
+} from 'react';
+
+import type {
+  Option,
+} from '../../../types';
+
 import CategoryTag from '../CategoryTag';
+
 import styles from './index.module.sass';
 
 type CategoryFilter = {
@@ -14,12 +22,28 @@ const CategoryFilter: React.FC<CategoryFilter> = ({
 }) => {
 
   const hardcodedCategories: Option[] = [
-    { content: "All" },
-    { content: "UI", acronym: true, expansion: 'User Interface' },
-    { content: "UX", acronym: true, expansion: 'User Experience' },
-    { content: "Enhancement" },
-    { content: "Bug" },
-    { content: "Feature" },
+    {
+      content: "All",
+    },
+    {
+      content: "UI",
+      acronym: true,
+      expansion: 'User Interface',
+    },
+    {
+      content: "UX",
+      acronym: true,
+      expansion: 'User Experience',
+    },
+    {
+      content: "Enhancement",
+    },
+    {
+      content: "Bug",
+    },
+    {
+      content: "Feature",
+    },
   ];
 
   const createClickHandler = (index: number) => () => {
@@ -35,7 +59,15 @@ const CategoryFilter: React.FC<CategoryFilter> = ({
             active={index === activeFilter}
             clickHandler={createClickHandler(index)}
           >
-            {category.acronym ? <abbr title={category.expansion}>{category.content}</abbr> : category.content}
+            {
+              category.acronym
+              ?
+                <abbr title={category.expansion}>
+                  {category.content}
+                </abbr>
+              :
+                category.content
+            }
           </CategoryTag>
         );
       })}

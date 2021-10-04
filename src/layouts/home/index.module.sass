@@ -1,22 +1,31 @@
 @use '../../styles/mixins/typography'
 @use '../../styles/mixins/scrolling'
 
+$m-bg-url: '/assets/images/mobile/background-header.png'
+$t-bg-url: '/assets/images/tablet/background-header.png'
+$d-bg-url: '/assets/images/desktop/background-header.png'
+
+$min-d-w: min-device-width
+$max-d-w: max-device-width
+
 .home
-  background-color: var(--off-white)
-  opacity: 0
-  transition: opacity 0.3s ease-out
+  transition: opacity 0.3s
 
 .fadeIn
   transition-timing-function: ease-in
   opacity: 1
 
-@media only screen and (max-device-width: 425px)
+.fadeOut
+  transition-timing-function: ease-out
+  opacity: 0
+
+@media only screen and ($max-d-w: 425px)
 
   .home
 
     & > div[role='presentation'] > header
       padding: 16px 24px
-      background: url('/assets/images/mobile/background-header.png') center no-repeat
+      background: url($m-bg-url) center no-repeat
       background-size: cover
       position: relative
 
@@ -48,7 +57,7 @@
       will-change: transform
       overflow-y: overlay
       overflow-x: hidden
-      @include scrolling.scroll-y(--scrollbar-color)
+      @include scrolling.scroll(--scrollbar-color)
       z-index: 1
 
       &[data-animation-stage='start']
@@ -81,7 +90,7 @@
       &[data-animation-stage='end']
         opacity: 1
 
-@media only screen and (min-device-width: 426px) and (max-device-width: 768px)
+@media only screen and ($min-d-w: 426px) and ($max-d-w: 768px)
 
   .home
     padding: 56px 40px 56px 39px
@@ -91,20 +100,21 @@
       column-gap: 10px
       overflow-y: hidden
       overflow-x: overlay
-      @include scrolling.scroll-y(--scrollbar-color)
+      @include scrolling.scroll(--scrollbar-color)
       width: calc(100vw - 40px)
 
     & > div[role='presentation'] > div[role='presentation']
       display: none
 
     & > div[role='presentation'] > header
-      background: url('/assets/images/tablet/background-header.png') center no-repeat
+      background: url($t-bg-url) center no-repeat
       background-size: cover
       width: 223px
       height: 178px
       padding: 24px
       border-radius: 10px
-      // flex-grow: 1 // TODO: Uncomment this after implementing profile aside
+      // TODO: Uncomment this after implementing profile aside
+      // flex-grow: 1
       flex-shrink: 0
       display: flex
       flex-direction: column
@@ -124,24 +134,37 @@
       display: flex
       column-gap: 10px
 
-@media only screen and (min-device-width: 769px)
+@media only screen and ($min-d-w: 769px)
 
   .home
-    --left-column: 255px
-    --right-column: 825px
-    --col-gap: 30px
 
-    --total-width: calc(calc(var(--left-column) + var(--right-column)) + var(--col-gap))
-    --max-spacing: calc(calc(100vw - var(--total-width)) / 2)
-    --side-spacing: clamp(24px, max(24px, var(--max-spacing)), var(--max-spacing))
+    --l-col: 255px
+    --r-col: 825px
+
+    --col-gap: 30px
+    --row-gap: 24px
+
+    --total-col-w: calc(var(--l-col) + var(--r-col))
+
+    --total-width: calc(var(--total-col-w) + var(--col-gap))
+
+    --max: calc(calc(100vw - var(--total-width)) / 2)
+
+    --pref: max(24px, var(--max))
+
+    --side-spacing: clamp(24px, var(--pref), var(--max))
 
     padding: 94px var(--side-spacing) 129px var(--side-spacing)
 
+    --g-cols: [left] 255px [mid] minmax(435px, 825px) [right]
+    --g-rows: [top] 72px [below-nav] auto [bottom]
+
     display: grid
-    grid-template-columns: [left] 255px [mid] minmax(435px, 825px) [right]
-    grid-template-rows: [top] 72px [below-aside] auto [bottom]
+    grid-template-columns: var(--g-cols)
+    grid-template-rows: var(--g-rows)
+
     column-gap: var(--col-gap)
-    row-gap: 24px
+    row-gap: var(--row-gap)
 
     & > div[role='presentation'] > div[role='presentation']
       display: none
@@ -158,7 +181,7 @@
       display: flex
       flex-direction: column
       justify-content: flex-end
-      background: url('/assets/images/desktop/background-header.png') center no-repeat
+      background: url($d-bg-url) center no-repeat
       background-size: cover
 
       & > h1

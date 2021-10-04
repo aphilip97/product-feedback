@@ -6,10 +6,13 @@ import type {
 
 import type {
   AnimationStage,
-  Option
+  Option,
 } from '../../../types';
 
-import { useState } from 'react';
+import {
+  useState,
+} from 'react';
+
 import styles from './index.module.sass';
 
 type SingleSelectProps = {
@@ -20,7 +23,7 @@ type SingleSelectProps = {
       Option['content']
     >
   >;
-  entityName: 'category' | 'progress'
+  entityName: 'category' | 'progress';
 };
 
 const SingleSelect: React.FC<SingleSelectProps> = ({

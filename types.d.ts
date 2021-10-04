@@ -1,6 +1,16 @@
-import type { ReactElement, ReactNode, MouseEventHandler } from 'react';
-import type { NextPage } from 'next';
-import type { AppProps } from 'next/app';
+import type {
+  ReactElement,
+  ReactNode,
+  MouseEventHandler,
+} from 'react';
+
+import type {
+  NextPage,
+} from 'next';
+
+import type {
+  AppProps,
+} from 'next/app';
 
 export type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -22,4 +32,13 @@ export type HamburgerProps = {
   menuState: boolean;
   menuAnimStage: AnimationStage;
   clickHandler: MouseEventHandler<HTMLButtonElement>;
+};
+
+interface NewFormElements extends HTMLFormControlsCollection {
+  titleInput: HTMLInputElement;
+  detailInput: HTMLTextAreaElement;
+};
+
+export interface NewFeedbackForm extends HTMLFormElement {
+  readonly elements: NewFormElements;
 };

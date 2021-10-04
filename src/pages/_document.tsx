@@ -1,9 +1,20 @@
-import Document, { Html, Head, Main, NextScript } from 'next/document'
+import {
+  Html,
+  Head,
+  Main,
+  NextScript,
+} from 'next/document'
+
+import Document from 'next/document';
 
 class MyDocument extends Document {
   render() {
+    const fontWeights = ['400', '500', '600', '700'];
+    const query = `family=Jost:wght@${
+      fontWeights.join(';')
+    }&display=swap`;
     return (
-      <Html>
+      <Html lang="en">
         <Head>
           <link
             rel="icon"
@@ -21,7 +32,7 @@ class MyDocument extends Document {
             crossOrigin=""
           />
           <link
-            href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&display=swap"
+            href={`https://fonts.googleapis.com/css2?${query}`}
             rel="stylesheet"
           />
           <title>Frontend Mentor | Product Feedback App</title>

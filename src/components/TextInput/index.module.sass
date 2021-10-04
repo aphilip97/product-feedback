@@ -1,5 +1,8 @@
 @use '../../styles/mixins/typography'
 
+$min-d-w: min-device-width
+$max-d-w: max-device-width
+
 fieldset.text-input
   margin: 0 0 4px
 
@@ -35,7 +38,7 @@ fieldset.text-input
     transform: translateY(4px)
     opacity: 1
 
-@media only screen and (max-device-width: 425px)
+@media only screen and ($max-d-w: 425px)
 
   fieldset.text-input
 
@@ -44,7 +47,7 @@ fieldset.text-input
       font-weight: 400
       padding: 15px 16px 14px 16px
 
-@media only screen and (min-device-width: 426px)
+@media only screen and ($min-d-w: 426px)
 
   fieldset.text-input
 

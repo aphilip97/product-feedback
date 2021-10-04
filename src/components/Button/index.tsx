@@ -1,9 +1,22 @@
-import { ButtonHTMLAttributes, MouseEventHandler } from 'react';
+import {
+  ButtonHTMLAttributes,
+} from 'react';
+
 import styles from './index.module.sass';
 
 type ButtonProps = {
-  variant: 'primary-purple' | 'primary-blue' | 'secondary' | 'danger';
-  type: ButtonHTMLAttributes<HTMLButtonElement>['type']
+
+  variant: (
+    'primary-purple'
+    | 'primary-blue'
+    | 'secondary'
+    | 'danger'
+  );
+
+  type: ButtonHTMLAttributes<
+    HTMLButtonElement
+  >['type']
+
 };
 
 const Button: React.FC<ButtonProps> = ({

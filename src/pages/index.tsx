@@ -1,23 +1,45 @@
-import { useCallback, useEffect, useState } from 'react';
-import type { NextPageWithLayout, AnimationStage, HamburgerProps } from '../../types';
+import type {
+  NextPageWithLayout,
+  AnimationStage,
+  HamburgerProps,
+} from '../../types';
+
+import {
+  useEffect,
+  useState,
+} from 'react';
+
 import CategoryFilter from '../components/CategoryFilter';
 import Hamburger from '../components/Hamburger';
+
 import HomeLayout from '../layouts/home';
 
 const Home: NextPageWithLayout = () => {
-  const [open, setOpen] = useState(false);
-  const [animStage, setAnimStage] = useState<AnimationStage>('start');
-  const [selected, setSelected] = useState(0);
 
-  const getAnimationStageOrder = useCallback<() => [
+  const [
+    open,
+    setOpen,
+  ] = useState<boolean>(false);
+
+  const [
+    animStage,
+    setAnimStage,
+  ] = useState<AnimationStage>('start');
+
+  const [
+    selected,
+    setSelected,
+  ] = useState<number>(0);
+
+  const getAnimationStageOrder = (): [
     AnimationStage,
     AnimationStage
-  ]>(() => {
+  ] => {
     if (!open) return ['middle', 'end'];
     return ['middle', 'start'];
-  }, [open]);
+  };
 
-  const toggleSideBar = useCallback((fnRefocus: () => void) => {
+  const toggleSideBar = (fnRefocus: () => void) => {
     const order = getAnimationStageOrder();
     setTimeout(() => {
       setAnimStage(order[0]);
@@ -27,40 +49,49 @@ const Home: NextPageWithLayout = () => {
         fnRefocus();
       }, 300);
     }, 150);
-  }, [getAnimationStageOrder, setAnimStage, setOpen]);
+  };
 
-  const clickHandler = useCallback<
-    HamburgerProps['clickHandler']
-  >(() => {
+  const clickHandler: HamburgerProps['clickHandler'] = () => {
     toggleSideBar(() => {});
-  }, [toggleSideBar]);
+  };
 
-  const refocus = useCallback(() => {
+  const refocus = () => {
     const button = document.querySelector(
       'header > button[data-open]'
     ) as HTMLButtonElement;
     button.focus();
-  }, []);
+  };
 
-  const escapeHandler = useCallback((e: KeyboardEvent) => {
+  const escapeHandler = (e: KeyboardEvent) => {
     if (open && e.code === 'Escape') toggleSideBar(refocus);
-  }, [open, toggleSideBar, refocus]);
+  };
 
-  const windowClickHandler = useCallback((e: MouseEvent) => {
+  const windowClickHandler = (e: MouseEvent) => {
     const x = window.innerWidth - 271;
     const y = 72;
     if (open && e.clientY > y && e.clientX < x) {
       toggleSideBar(() => {});
     }
-  }, [open, toggleSideBar]);
+  };
 
   useEffect(() => {
-    const html = document.querySelector('html') as HTMLHtmlElement;
-    const body = document.querySelector('body') as HTMLBodyElement;
-    const root = document.querySelector('div#__next') as HTMLDivElement;
+
+    const html = document.querySelector(
+      'html'
+    ) as HTMLHtmlElement;
+
+    const body = document.querySelector(
+      'body'
+    ) as HTMLBodyElement;
+
+    const root = document.querySelector(
+      'div#__next'
+    ) as HTMLDivElement;
+
     html.style.overflowY = open ? 'hidden' : '';
     body.style.overflowY = open ? 'hidden' : '';
     root.style.overflowY = open ? 'hidden' : '';
+
   }, [open]);
 
   useEffect(() => {
@@ -78,14 +109,25 @@ const Home: NextPageWithLayout = () => {
   return (
     <>
       <div role='presentation'>
-        <div role='presentation' className='overlay' data-animation-stage={animStage}></div>
+        <div
+          role='presentation'
+          className='overlay'
+          data-animation-stage={animStage}
+        ></div>
         <header>
           <h1>Frontend Mentor</h1>
           <h2>Feedback Board</h2>
-          <Hamburger menuState={open} menuAnimStage={animStage} clickHandler={clickHandler} />
+          <Hamburger
+            menuState={open}
+            menuAnimStage={animStage}
+            clickHandler={clickHandler}
+          />
         </header>
         <aside data-animation-stage={animStage} >
-          <CategoryFilter activeFilter={selected} changeFilter={setSelected} />
+          <CategoryFilter
+            activeFilter={selected}
+            changeFilter={setSelected}
+          />
         </aside>
       </div>
     </>

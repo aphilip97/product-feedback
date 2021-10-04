@@ -1,11 +1,22 @@
-import '../styles/globals.sass';
-import type { AppPropsWithLayout } from '../../types';
-import { useEffect } from 'react';
+import type {
+  AppPropsWithLayout,
+} from '../../types';
 
-const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
+import {
+  useEffect,
+} from 'react';
+
+import '../styles/globals.sass';
+
+const MyApp = (props: AppPropsWithLayout) => {
+
+  const { Component, pageProps } = props;
 
   useEffect(() => {
-    document.getElementById('__next')?.setAttribute('role', 'presentation');
+    const root = document.getElementById(
+      '__next'
+    ) as HTMLDivElement | null;
+    root?.setAttribute('role', 'presentation');
   }, []);
 
   const getLayout = Component.getLayout ?? (page => page);

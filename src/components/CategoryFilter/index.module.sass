@@ -1,3 +1,6 @@
+$min-d-w: min-device-width
+$max-d-w: max-device-width
+
 .container
   background-color: var(--white)
   width: 223px
@@ -9,13 +12,13 @@
   row-gap: 14px
   column-gap: 8px
 
-@media only screen and (min-device-width: 426px) and (max-device-width: 768px)
+@media only screen and ($min-d-w: 426px) and ($max-d-w: 768px)
 
   .container
     flex-grow: 1
     flex-shrink: 0
 
-@media only screen and (min-device-width: 769px)
+@media only screen and ($min-d-w: 769px)
 
   .container
     width: 255px

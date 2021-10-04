@@ -5,7 +5,10 @@ import type {
   TextareaHTMLAttributes,
 } from 'react';
 
-import { useState } from 'react';
+import {
+  useState,
+} from 'react';
+
 import styles from './index.module.sass';
 
 type CustomTextAreaProps = {
@@ -66,7 +69,9 @@ const CustomTextArea: React.FC<
         data-invalid={invalid}
       />
       <span>
-        <small className={styles['error']} role="alert">Can't be empty</small>
+        <small className={styles['error']} role="alert">
+          Can't be empty
+        </small>
       </span>
     </fieldset>
   );

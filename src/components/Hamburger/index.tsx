@@ -1,4 +1,7 @@
-import type { HamburgerProps } from '../../../types';
+import type {
+  HamburgerProps,
+} from '../../../types';
+
 import styles from './index.module.sass';
 
 const Hamburger: React.FC<HamburgerProps> = ({

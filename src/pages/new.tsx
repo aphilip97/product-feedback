@@ -1,34 +1,56 @@
-import type { Option, NextPageWithLayout } from '../../types';
-import type { FormEventHandler } from 'react';
-import { useRouter } from 'next/dist/client/router';
-import { useState } from 'react';
+import type {
+  NextPageWithLayout,
+  Option,
+  NewFeedbackForm,
+} from '../../types';
+
+import type {
+  FormEventHandler,
+} from 'react';
+
+import {
+  useRouter,
+} from 'next/dist/client/router';
+
+import {
+  useState,
+} from 'react';
+
 import TextInput from '../components/TextInput';
 import SingleSelect from '../components/SingleSelect';
 import CustomTextArea from '../components/CustomTextArea';
 import Button from '../components/Button';
+
 import NewLayout from '../layouts/new';
 
-interface NewFeedbackFormElements extends HTMLFormControlsCollection {
-  titleInput: HTMLInputElement;
-  detailInput: HTMLTextAreaElement;
-}
-
-interface NewFeedbackForm extends HTMLFormElement {
-  readonly elements: NewFeedbackFormElements;
-}
-
 const New: NextPageWithLayout = () => {
+
   const router = useRouter();
+
   const [title, setTitle] = useState<string>('');
-  const [selectedCategory, setSelectedCategory] = useState('Feature');
+  const [category, setCategory] = useState('Feature');
   const [detail, setDetail] = useState<string>('');
 
   const [categories] = useState<Option[]>([
-    { content: "Feature" },
-    { content: "UI", acronym: true, expansion: 'User Interface' },
-    { content: "UX", acronym: true, expansion: 'User Experience' },
-    { content: "Enhancement" },
-    { content: "Bug" },
+    {
+      content: "Feature"
+    },
+    {
+      content: "UI",
+      acronym: true,
+      expansion: 'User Interface'
+    },
+    {
+      content: "UX",
+      acronym: true,
+      expansion: 'User Experience'
+    },
+    {
+      content: "Enhancement"
+    },
+    {
+      content: "Bug"
+    },
   ]);
 
   const goBack = () => {
@@ -69,7 +91,7 @@ const New: NextPageWithLayout = () => {
         method: 'POST',
         body: JSON.stringify({
           title: title.trim(),
-          category: selectedCategory,
+          category: category,
           content: detail.trim(),
         }),
       };
@@ -80,7 +102,7 @@ const New: NextPageWithLayout = () => {
       .finally(
         () => {
           setTitle('');
-          setSelectedCategory('Feature');
+          setCategory('Feature');
           setDetail('');
           router.back();
         }
@@ -111,14 +133,16 @@ const New: NextPageWithLayout = () => {
           setValue={setTitle}
         >
           <label htmlFor="title">Feedback Title</label>
-          <p id="title-help">Add a short, descriptive headline</p>
+          <p id="title-help">
+            Add a short, descriptive headline
+          </p>
         </TextInput>
 
         <SingleSelect
           entityName="category"
           items={categories}
-          selectedItem={selectedCategory}
-          setSelectedItem={setSelectedCategory}
+          selectedItem={category}
+          setSelectedItem={setCategory}
         >
           <label id="category-select-label">Category</label>
           <p id="category-help">
@@ -132,12 +156,19 @@ const New: NextPageWithLayout = () => {
           setValue={setDetail}
         >
           <label htmlFor="detail">Feedback Detail</label>
-          <p id="detail-help">Include any specific comments on what should be improved, added, etc.</p>
+          <p id="detail-help">
+            Include any specific comments on what should be
+            improved, added, etc.
+          </p>
         </CustomTextArea>
 
         <div role="presentation">
-          <Button variant="primary-purple" type="submit">Add Feedback</Button>
-          <Button variant="secondary" type="reset">Cancel</Button>
+          <Button variant="primary-purple" type="submit">
+            Add Feedback
+          </Button>
+          <Button variant="secondary" type="reset">
+            Cancel
+          </Button>
         </div>
 
       </form>

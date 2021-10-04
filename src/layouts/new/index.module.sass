@@ -1,15 +1,21 @@
 @use '../../styles/mixins/typography'
 @use '../../styles/mixins/scrolling'
 
+$min-d-w: min-device-width
+$max-d-w: max-device-width
+
 .new
-  opacity: 0
-  transition: opacity 0.3s ease-out
+  transition: opacity 0.3s
 
 .fadeIn
   transition-timing-function: ease-in
   opacity: 1
 
-@media only screen and (max-device-width: 425px)
+.fadeOut
+  transition-timing-function: ease-out
+  opacity: 0
+
+@media only screen and ($max-d-w: 425px)
 
   .new
     padding: 34px 24px 77px
@@ -73,7 +79,7 @@
         flex-direction: column
         row-gap: 16px
 
-@media only screen and (min-device-width: 426px)
+@media only screen and ($min-d-w: 426px)
 
   .new
     margin: 56px auto 56px
@@ -145,7 +151,7 @@
         & > button[type='submit']
           order: 2
 
-@media only screen and (min-device-width: 769px)
+@media only screen and ($min-d-w: 769px)
 
   .new
     margin: 92px auto 92px

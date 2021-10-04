@@ -1,5 +1,8 @@
 @use "../../styles/mixins/typography"
 
+$min-d-w: min-device-width
+$max-d-w: max-device-width
+
 button.category
   @include typography.body-3(--blue)
   background: none
@@ -9,7 +12,7 @@ button.category
   padding: 5px 16px
   outline: none
   cursor: pointer
-  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out
+  transition: background-color 0.3s linear, color 0.3s linear
 
 button.category:hover,
 button.category:focus
