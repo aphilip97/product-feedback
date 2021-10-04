@@ -1,10 +1,6 @@
 @use '../../styles/mixins/typography'
 @use '../../styles/mixins/scrolling'
 
-$m-bg-url: '/assets/images/mobile/background-header.png'
-$t-bg-url: '/assets/images/tablet/background-header.png'
-$d-bg-url: '/assets/images/desktop/background-header.png'
-
 $min-d-w: min-device-width
 $max-d-w: max-device-width
 
@@ -21,118 +17,10 @@ $max-d-w: max-device-width
 
 @media only screen and ($max-d-w: 425px)
 
-  .home
-
-    & > div[role='presentation'] > header
-      padding: 16px 24px
-      background: url($m-bg-url) center no-repeat
-      background-size: cover
-      position: relative
-
-      & > h1
-        @include typography.heading-smallest(--white)
-        font-size: 15px
-        line-height: 21.68px
-        letter-spacing: -0.19px
-        margin: 0
-
-      & > h2
-        @include typography.body-3(--white)
-        font-weight: 500
-        opacity: 0.75
-        margin: 0
-
-    & > div[role='presentation'] > aside
-      background-color: var(--off-white)
-      width: min(271px, 100vw)
-      height: calc(100vh - 72px)
-      padding: 24px
-      position: fixed
-      right: 0px
-      display: flex
-      flex-direction: column
-      align-items: center
-      row-gap: 24px
-      transition: transform .15s ease-in
-      will-change: transform
-      overflow-y: overlay
-      overflow-x: hidden
-      @include scrolling.scroll(--scrollbar-color)
-      z-index: 1
-
-      &[data-animation-stage='start']
-        transform: translateX(100%)
-        visibility: hidden
-
-      &[data-animation-stage='middle']
-        transform: translateX(100%)
-
-      &[data-animation-stage='end']
-        transform: translateX(0px)
-
-    & > div[role='presentation'] > div[role='presentation']
-      background-color: hsla(0deg 0% 0% / .5)
-      position: fixed
-      left: 0
-      top: 72px
-      width: 100vw
-      height: calc(100vh - 72px)
-      z-index: 0
-      pointer-events: none
-      transition: opacity .15s ease-in-out
-
-      &[data-animation-stage='start']
-        opacity: 0
-
-      &[data-animation-stage='middle']
-        opacity: 0
-
-      &[data-animation-stage='end']
-        opacity: 1
-
 @media only screen and ($min-d-w: 426px) and ($max-d-w: 768px)
 
   .home
     padding: 56px 40px 56px 39px
-
-    & > div[role='presentation']
-      display: flex
-      column-gap: 10px
-      overflow-y: hidden
-      overflow-x: overlay
-      @include scrolling.scroll(--scrollbar-color)
-      width: calc(100vw - 40px)
-
-    & > div[role='presentation'] > div[role='presentation']
-      display: none
-
-    & > div[role='presentation'] > header
-      background: url($t-bg-url) center no-repeat
-      background-size: cover
-      width: 223px
-      height: 178px
-      padding: 24px
-      border-radius: 10px
-      // TODO: Uncomment this after implementing profile aside
-      // flex-grow: 1
-      flex-shrink: 0
-      display: flex
-      flex-direction: column
-      justify-content: flex-end
-
-      & > h1
-        @include typography.heading-big(--white)
-        margin: 0
-
-      & > h2
-        @include typography.body-2(--white)
-        font-weight: 500
-        opacity: 0.75
-        margin: 0
-
-    & > div[role='presentation'] > aside
-      display: flex
-      column-gap: 10px
 
 @media only screen and ($min-d-w: 769px)
 
@@ -165,36 +53,3 @@ $max-d-w: max-device-width
 
     column-gap: var(--col-gap)
     row-gap: var(--row-gap)
-
-    & > div[role='presentation'] > div[role='presentation']
-      display: none
-
-    & > div[role='presentation']
-      grid-column: left / mid
-      grid-row: top / bottom
-
-    & > div[role='presentation'] > header
-      padding: 24px
-      margin-bottom: 24px
-      border-radius: 10px
-      height: 137px
-      display: flex
-      flex-direction: column
-      justify-content: flex-end
-      background: url($d-bg-url) center no-repeat
-      background-size: cover
-
-      & > h1
-        @include typography.heading-big(--white)
-        margin: 0
-
-      & > h2
-        @include typography.body-2(--white)
-        font-weight: 500
-        opacity: 0.75
-        margin: 0
-
-    & > div[role='presentation'] > aside
-      display: flex
-      flex-direction: column
-      row-gap: 24px
