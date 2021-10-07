@@ -3,6 +3,7 @@ import type {
 } from '../../types';
 
 import {
+  ReactElement,
   useEffect,
 } from 'react';
 
@@ -19,7 +20,9 @@ const MyApp = (props: AppPropsWithLayout) => {
     root?.setAttribute('role', 'presentation');
   }, []);
 
-  const getLayout = Component.getLayout ?? (page => page);
+  const getLayout = Component.getLayout ?? (
+    (page: ReactElement) => page
+  );
 
   return getLayout(<Component {...pageProps} />);
 

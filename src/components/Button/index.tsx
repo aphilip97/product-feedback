@@ -1,5 +1,6 @@
 import {
   ButtonHTMLAttributes,
+  MouseEventHandler,
 } from 'react';
 
 import styles from './index.module.sass';
@@ -15,14 +16,17 @@ type ButtonProps = {
 
   type: ButtonHTMLAttributes<
     HTMLButtonElement
-  >['type']
+  >['type'];
+
+  clickHandler?: MouseEventHandler<HTMLButtonElement>;
 
 };
 
 const Button: React.FC<ButtonProps> = ({
-  children,
   variant,
   type,
+  clickHandler,
+  children,
 }) => {
 
   const colorScheme: {
@@ -35,6 +39,7 @@ const Button: React.FC<ButtonProps> = ({
     <button
       className={styles['button']}
       type={type}
+      onClick={clickHandler}
       {...colorScheme}
     >
       {children}

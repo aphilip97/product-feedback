@@ -12,8 +12,8 @@ import type {
   AppProps,
 } from 'next/app';
 
-export type NextPageWithLayout = NextPage & {
-  getLayout?: (page: ReactElement) => ReactNode;
+export type NextPageWithLayout<T = {}> = NextPage<T> & {
+  getLayout?: (page: ReactElement<T>) => ReactNode;
 };
 
 export type AppPropsWithLayout = AppProps & {
@@ -41,11 +41,11 @@ export type HamburgerProps = {
   clickHandler: MouseEventHandler<HTMLButtonElement>;
 };
 
-interface NewFormElements extends HTMLFormControlsCollection {
+interface FormElements extends HTMLFormControlsCollection {
   titleInput: HTMLInputElement;
   detailInput: HTMLTextAreaElement;
 };
 
-export interface NewFeedbackForm extends HTMLFormElement {
-  readonly elements: NewFormElements;
+export interface FeedbackForm extends HTMLFormElement {
+  readonly elements: FormElements;
 };

@@ -23,7 +23,7 @@ type SingleSelectProps = {
       Option['content']
     >
   >;
-  entityName: 'category' | 'progress';
+  entityName: 'category' | 'status';
 };
 
 const SingleSelect: React.FC<SingleSelectProps> = ({

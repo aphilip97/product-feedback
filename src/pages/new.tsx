@@ -1,7 +1,7 @@
 import type {
   NextPageWithLayout,
   Option,
-  NewFeedbackForm,
+  FeedbackForm,
 } from '../../types';
 
 import type {
@@ -10,7 +10,7 @@ import type {
 
 import {
   useRouter,
-} from 'next/dist/client/router';
+} from 'next/router';
 
 import {
   useState,
@@ -64,7 +64,7 @@ const New: NextPageWithLayout = () => {
   };
 
   const handleSubmit: FormEventHandler<
-    NewFeedbackForm
+    FeedbackForm
   > = (evt) => {
 
     evt.preventDefault();
@@ -96,7 +96,7 @@ const New: NextPageWithLayout = () => {
         }),
       };
 
-      fetch('/api/p', options)
+      fetch('/api/feedback', options)
       .then(res => res.json())
       .catch(console.error)
       .finally(
