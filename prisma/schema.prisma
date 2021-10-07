@@ -7,12 +7,12 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model Post {
+model Feedback {
   id       String @id @default(uuid())
   title    String @db.VarChar(50)
   category String
   status   String
   content  String @db.VarChar(250)
 
-  @@map("post")
+  @@map("feedback")
 }
