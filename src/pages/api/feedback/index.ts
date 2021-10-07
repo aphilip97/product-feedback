@@ -1,5 +1,5 @@
 import type {
-  Post,
+  Feedback,
 } from '@prisma/client';
 
 import type {
@@ -9,9 +9,10 @@ import type {
 import {
   customError,
   parseReqBody,
-} from '../../util/api/middleware';
+  tryCatch,
+} from '../../../util/api/middleware';
 
-import db from '../../lib/prisma';
+import db from '../../../lib/prisma';
 
 type PostBody = {
   title: string;
@@ -19,37 +20,48 @@ type PostBody = {
   content: string;
 };
 
-const getFeedback: NextApiHandler<
-  Post[]
-> = async (req, res) => {
-  const limit = 5;
-  const { page } = req.query;
-  const posts = await db.post.findMany({
-    take: limit,
-    skip: (limit * (Number(page ?? 1) - 1)),
-  });
-  return res.status(200).send(posts);
-};
-
-const postFeedback: NextApiHandler<
-  Post | Error
+const getFeedbackItems: NextApiHandler<
+  Feedback[] | Error
 > = async (req, res) => {
 
-  try {
+  tryCatch(res, async () => {
 
     // Extract values
-    const body: PostBody | null = parseReqBody<
-      PostBody
-    >(req.body);
+    const limit = 5;
+    const { page } = req.query;
 
-    if (body === null) {
+    // Validate
+    if (page instanceof Array) {
       return customError(
         res,
         400,
-        'Bad request',
-        'Request body is missing.',
+        'Bad Request',
+        'Duplicate query parameter.',
       );
     }
+
+    // Fetch the things
+    const feedbacks = await db.feedback.findMany({
+      take: limit,
+      skip: (limit * (Number(page ?? 1) - 1)),
+    });
+
+    return res.status(200).send(feedbacks);
+
+  });
+
+};
+
+const postFeedback: NextApiHandler<
+  Feedback | Error
+> = async (req, res) => {
+
+  tryCatch(res, async () => {
+
+    // Extract values
+    const body = parseReqBody<PostBody>(res, req.body);
+
+    if (body === null) return;
 
     const {
       title,
@@ -57,14 +69,14 @@ const postFeedback: NextApiHandler<
       content,
     } = body;
 
-    const defaultStatus = "Suggestion";
+    const defaultStatus = 'Suggestion';
 
     const categories = [
-      "UI",
-      "UX",
-      "Enhancement",
-      "Bug",
-      "Feature",
+      'UI',
+      'UX',
+      'Enhancement',
+      'Bug',
+      'Feature',
     ];
 
     const errors: String[] = [];
@@ -92,7 +104,7 @@ const postFeedback: NextApiHandler<
     }
 
     // Insert into database
-    const post = await db.post.create({
+    const feedback = await db.feedback.create({
       data: {
         title,
         content,
@@ -101,27 +113,31 @@ const postFeedback: NextApiHandler<
       },
     });
 
-    return res.status(200).send(post);
+    return res.status(200).send(feedback);
 
-  } catch (err) {
-    return customError(
-      res,
-      500,
-      "Internal Server Error",
-      "Something went wrong.",
-    );
-  }
+  });
 
 };
 
-const handler: NextApiHandler<
-  Post | Post[] | Error
+const handlerFeedback: NextApiHandler<
+  Feedback | Feedback[] | Error
 > = async (req, res) => {
+
   switch (req.method) {
-    case 'GET': return await getFeedback(req, res);
-    case 'POST': return await postFeedback(req, res);
-    default: return res.status(501).end();
+
+    case 'GET': await getFeedbackItems(req, res); break;
+
+    case 'POST': await postFeedback(req, res); break;
+
+    default: return customError(
+      res,
+      501,
+      'Not Implemented',
+      `${req.method} /api/feedback is not implemented.`
+    );
+
   }
+
 };
 
-export default handler;
+export default handlerFeedback;

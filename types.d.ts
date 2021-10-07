@@ -28,6 +28,13 @@ export type Option = {
   expansion?: string;
 };
 
+export type PatchBody = {
+  title?: string;
+  category?: string;
+  status?: string;
+  content?: string;
+};
+
 export type HamburgerProps = {
   menuState: boolean;
   menuAnimStage: AnimationStage;
