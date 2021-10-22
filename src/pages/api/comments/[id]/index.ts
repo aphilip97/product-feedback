@@ -121,7 +121,7 @@ const commentPostValidate: Validate<CommentPostBody> = (
   obj,
 ) => {
 
-  let {
+  const {
     content = '',
     author_name = '',
     author_username = '',
@@ -219,10 +219,10 @@ const commentPatchValidate: Validate<CommentPatchBody> = (
   obj,
 ) => {
 
-  let {
+  const {
     content = '',
   } = obj;
-  
+
   const errors: String[] = [];
 
   if (content.length === 0) {

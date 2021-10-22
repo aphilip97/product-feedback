@@ -136,7 +136,7 @@ const commentPostValidate: Validate<CommentPostBody> = (
   obj,
 ) => {
 
-  let {
+  const {
     content = '',
     author_name = '',
     author_username = '',
