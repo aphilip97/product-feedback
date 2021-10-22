@@ -8,11 +8,29 @@ generator client {
 }
 
 model Feedback {
-  id       String @id @default(uuid())
-  title    String @db.VarChar(50)
+  id       String    @id @default(uuid())
+  title    String    @db.VarChar(50)
   category String
   status   String
-  content  String @db.VarChar(250)
+  content  String    @db.VarChar(250)
+  Comment  Comment[]
 
   @@map("feedback")
+}
+
+model Comment {
+  id              String    @id @default(uuid())
+  content         String    @db.VarChar(250)
+  feedback_id     String
+  feedback        Feedback  @relation(fields: [feedback_id], references: [id])
+  author_name     String
+  author_username String
+  parent_id       String?   @unique
+  // created_at      DateTime  @default(now())
+  // updated_at      DateTime  @updatedAt
+  parent          Comment?  @relation("CommentToComment", fields: [parent_id], references: [id])
+  // comment         Comment? @relation("CommentToComment")
+  comment         Comment[] @relation("CommentToComment")
+
+  @@map("comment")
 }
