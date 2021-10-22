@@ -6,6 +6,11 @@ import type {
   NextApiHandler,
 } from 'next';
 
+import type {
+  Optional,
+  Validate,
+} from '../../../../types';
+
 import {
   customError,
   parseReqBody,
@@ -14,33 +19,31 @@ import {
 
 import db from '../../../lib/prisma';
 
-type PostBody = {
-  title: string;
-  category: string;
-  content: string;
-};
+type FeedbackPostBody = Optional<
+  Omit<
+    Feedback, 'id' | 'status'
+  >
+>;
 
-const getFeedbackItems: NextApiHandler<
+const readFeedbackItems: NextApiHandler<
   Feedback[] | Error
 > = async (req, res) => {
 
   tryCatch(res, async () => {
 
-    // Extract values
+    // Extract query parameters
     const limit = 5;
     const { page } = req.query;
 
-    // Validate
-    if (page instanceof Array) {
-      return customError(
-        res,
-        400,
-        'Bad Request',
-        'Duplicate query parameter.',
-      );
-    }
+    // Validate query parameters
+    if (page instanceof Array) return customError(
+      res,
+      400,
+      'Bad Request',
+      'Duplicate query parameter.',
+    );
 
-    // Fetch the things
+    // Query the database
     const feedbacks = await db.feedback.findMany({
       take: limit,
       skip: (limit * (Number(page ?? 1) - 1)),
@@ -52,64 +55,79 @@ const getFeedbackItems: NextApiHandler<
 
 };
 
-const postFeedback: NextApiHandler<
+const feedbackPostValidate: Validate<FeedbackPostBody> = (
+  res,
+  obj,
+) => {
+
+  const {
+    title = '',
+    category = '',
+    content = '',
+  } = obj;
+
+  const categories = [
+    'UI',
+    'UX',
+    'Enhancement',
+    'Bug',
+    'Feature',
+  ];
+
+  const errors: String[] = [];
+
+  if (title.length === 0) {
+    errors.push('Title cannot be empty.');
+  }
+
+  if (!categories.includes(category)) {
+    errors.push('Category does not exist.');
+  }
+
+  if (content.length === 0) {
+    errors.push('Content cannot be empty.');
+  }
+
+  if (errors.length !== 0) {
+    customError(
+      res,
+      400,
+      'Bad Request',
+      errors.join('\n'),
+    );
+    return null;
+  }
+
+  return {
+    title,
+    category,
+    content,
+  };
+
+};
+
+const createFeedback: NextApiHandler<
   Feedback | Error
 > = async (req, res) => {
 
   tryCatch(res, async () => {
 
-    // Extract values
-    const body = parseReqBody<PostBody>(res, req.body);
-
+    // Parse request body
+    const body = parseReqBody<FeedbackPostBody>(res, req.body);
     if (body === null) return;
 
-    const {
-      title,
-      category,
-      content,
-    } = body;
+    // Validate request body
+    const values = feedbackPostValidate(res, body);
+    if (values === null) return;
 
-    const defaultStatus = 'Suggestion';
-
-    const categories = [
-      'UI',
-      'UX',
-      'Enhancement',
-      'Bug',
-      'Feature',
-    ];
-
-    const errors: String[] = [];
-
-    // Validate
-    if (title.length === 0) {
-      errors.push('Title cannot be empty.');
-    }
-
-    if (!categories.includes(category)) {
-      errors.push('Invalid category.');
-    }
-
-    if (content.length === 0) {
-      errors.push('Content cannot be empty.');
-    }
-
-    if (errors.length !== 0) {
-      return customError(
-        res,
-        400,
-        'Bad Request',
-        errors.join('\n'),
-      );
-    }
+    // Defaults
+    const status = 'Suggestion';
 
     // Insert into database
     const feedback = await db.feedback.create({
       data: {
-        title,
-        content,
-        category,
-        status: defaultStatus,
+        ...values,
+        status,
       },
     });
 
@@ -125,15 +143,15 @@ const handlerFeedback: NextApiHandler<
 
   switch (req.method) {
 
-    case 'GET': await getFeedbackItems(req, res); break;
+    case 'GET': await readFeedbackItems(req, res); break;
 
-    case 'POST': await postFeedback(req, res); break;
+    case 'POST': await createFeedback(req, res); break;
 
     default: return customError(
       res,
       501,
       'Not Implemented',
-      `${req.method} /api/feedback is not implemented.`
+      `${req.method} /api/feedback is not implemented.`,
     );
 
   }
