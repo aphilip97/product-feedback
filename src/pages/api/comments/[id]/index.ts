@@ -4,11 +4,11 @@ import type {
 
 import type {
   NextApiHandler,
-  NextApiResponse,
 } from "next";
 
 import type {
   Optional,
+  Validate,
 } from '../../../../../types';
 
 import {
@@ -34,13 +34,6 @@ type CommentPatchBody = Optional<
     Comment, 'content'
   >
 >;
-
-type Validate<
-  T
-> = (
-  res: NextApiResponse,
-  obj: T,
-) => Required<T> | null;
 
 const readComments: NextApiHandler<
   PartialComment[] | Error

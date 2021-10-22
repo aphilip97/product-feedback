@@ -12,6 +12,10 @@ import type {
   AppProps,
 } from 'next/app';
 
+import type {
+  Feedback,
+} from '@prisma/client';
+
 export type NextPageWithLayout<T = {}> = NextPage<T> & {
   getLayout?: (page: ReactElement<T>) => ReactNode;
 };
@@ -32,12 +36,18 @@ export type Optional<T> = {
   [P in keyof T]?: T[P];
 };
 
-export type PatchBody = {
-  title?: string;
-  category?: string;
-  status?: string;
-  content?: string;
-};
+export type PatchBody = Optional<
+  Omit<
+    Feedback, 'id'
+  >
+>;
+
+export type Validate<
+  T
+> = (
+  res: NextApiResponse,
+  obj: T,
+) => Required<T> | null;
 
 export type HamburgerProps = {
   menuState: boolean;
