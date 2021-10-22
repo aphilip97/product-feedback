@@ -41,12 +41,12 @@ const readComments: NextApiHandler<
 
   return tryCatch(res, async () => {
 
-    // Extract values
+    // Extract query parameters
     const feedback_id = req.query.id;
     const page = req.query.page;
     const limit = 5;
 
-    // Validate
+    // Validate query parameters
     if (feedback_id instanceof Array) return customError(
       res,
       400,
@@ -195,7 +195,7 @@ const createComment: NextApiHandler<
     const body = parseReqBody<CommentPostBody>(res, req.body);
     if (body === null) return;
 
-    // Validate body
+    // Validate request body
     const values = commentPostValidate(res, body);
     if (values === null) return;
 
@@ -275,6 +275,7 @@ const updateComment: NextApiHandler<
       'Path parameter feedback id cannot be empty.',
     );
 
+    // Check if comment to update exists.
     const commentToUpdate = await db.comment.findUnique({
       where: {
         id,
@@ -296,6 +297,7 @@ const updateComment: NextApiHandler<
     const values = commentPatchValidate(res, body);
     if (values === null) return;
 
+    // Update database record
     const comment = await db.comment.update({
       data: {
         ...values,
@@ -341,6 +343,7 @@ const deleteComment: NextApiHandler<
       'Path parameter feedback id cannot be empty.',
     );
 
+    // Check if comment to delete exists
     const commentToDelete = await db.comment.findUnique({
       where: {
         id,
@@ -354,6 +357,7 @@ const deleteComment: NextApiHandler<
       'Comment to delete does not exist.',
     );
 
+    // Delete the comment
     const comment = await db.comment.delete({
       where: {
         id,

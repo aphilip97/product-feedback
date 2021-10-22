@@ -35,13 +35,13 @@ const readComments: NextApiHandler<
 
   return tryCatch(res, async () => {
 
-    // Extract values
+    // Extract query parameters
     const feedback_id = req.query.id;
     const parent_id = req.query.comment_id;
     const page = req.query.page;
     const limit = 5;
 
-    // Validate
+    // Validate query parameters
     if (feedback_id instanceof Array) return customError(
       res,
       400,
@@ -231,7 +231,7 @@ const createNestedComment: NextApiHandler<
     const body = parseReqBody<CommentPostBody>(res, req.body);
     if (body === null) return;
 
-    // Validate body
+    // Validate request body
     const values = commentPostValidate(res, body);
     if (values === null) return;
 
