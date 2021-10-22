@@ -2,7 +2,7 @@ import type {
   NextPageWithLayout,
   Option,
   FeedbackForm,
-  PatchBody
+  PatchBody,
 } from '../../../../types';
 
 import type {
@@ -25,7 +25,7 @@ import {
 } from 'next';
 
 import {
-  useState
+  useState,
 } from 'react';
 
 import db from '../../../lib/prisma';
@@ -53,8 +53,6 @@ const Edit: NextPageWithLayout<EditPageProps> = ({ post }) => {
   const [category, setCategory] = useState(post.category);
   const [status, setStatus] = useState(post.status);
   const [detail, setDetail] = useState<string>(post.content);
-  const [delConf, setDelConf] = useState(false);
-  const [btnDelTxt, setBtnDelTxt] = useState('Delete');
 
   const [categories] = useState<Option[]>([
     {
