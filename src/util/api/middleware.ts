@@ -9,13 +9,18 @@ export const parseReqBody = <
   body: string,
 ): T | null => {
   try {
-    return JSON.parse(body);
-  } catch {
+    if (typeof body === 'string') {
+      return JSON.parse(body);
+    } else if (typeof body === 'object') {
+      return body;
+    }
+    return null;
+  } catch (e) {
     customError(
       res,
       400,
       'Bad Request',
-      'Request body is missing.'
+      `Malformed JSON in request body. ${e.name} ${e.message}`,
     );
     return null
   }
