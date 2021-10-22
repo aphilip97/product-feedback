@@ -28,6 +28,10 @@ export type Option = {
   expansion?: string;
 };
 
+export type Optional<T> = {
+  [P in keyof T]?: T[P];
+};
+
 export type PatchBody = {
   title?: string;
   category?: string;
