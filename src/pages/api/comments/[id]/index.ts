@@ -64,7 +64,7 @@ const readComments: NextApiHandler<
       res,
       400,
       'Bad Request',
-      'Path parameter feedback id cannot be empty.',
+      'Path parameter <id> cannot be empty.',
     );
 
     if (page instanceof Array) return customError(
