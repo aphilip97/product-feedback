@@ -6,12 +6,21 @@ export const parseReqBody = <
   T
 >(
   res: NextApiResponse,
-  body: string,
+  body: any,
 ): T | null => {
   try {
     if (typeof body === 'string') {
       return JSON.parse(body);
     } else if (typeof body === 'object') {
+      if (Object.keys(body).length === 0) {
+        customError(
+          res,
+          400,
+          'Bad Request',
+          'Request body is empty.',
+        );
+        return null;
+      }
       return body;
     }
     return null;
